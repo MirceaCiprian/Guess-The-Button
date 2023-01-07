@@ -5,8 +5,7 @@ function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function GenerateButtons()
-{
+function GenerateButtons(){
     let noOfButtons;
     let insertedNumber = document.getElementById("text").value;
     if( 1 < insertedNumber && insertedNumber < 1000)
@@ -21,60 +20,51 @@ function GenerateButtons()
         <br>
         <div class="card">
             <div class="card-body">
-            <div class="col text-center">
-            <button class="btn btn-danger" onclick="checkButton(${id})">
-               Button ${id}
-            </button>
-            </div>
+                <div class="col text-center">
+                    <button class="btn btn-danger" onclick="checkButton(${id})">
+                    Button ${id}
+                    </button>
+                </div>
             </div>
         </div>
-     </div>
-     `;
+        </div>
+        `;
     }
     document.getElementById("genButton").onclick=null;
     randomValue = randomIntFromInterval(1, insertedNumber);
 }
 
-function checkButton(value)
-{
+function checkButton(value){
+    let gameResult;
+    let displayField;
     if(locked == 0)
     {
+        locked = 1;
         if(value == randomValue)
         {
-            document.getElementById("result-success").innerHTML = "YOU WIN!";
-            locked = 1;
-            document.getElementById("result-success").innerHTML += `
-            <div class="card">
-                <div class="card-body">
-                    <div class="col text-center">
-                    <button class="btn btn-primary" onclick="ReloadPage()">
-                    Restart Game
-                    </button>
-                    </div>
-                </div>
-            </div>
-            `;
+            gameResult = "YOU WIN!"
+            displayField = "result-success"
         }
         else
         {
-            document.getElementById("result-fail").innerHTML = "YOU LOSE!";
-            locked = 1;
-            document.getElementById("result-fail").innerHTML += `
-            <div class="card">
-                <div class="card-body">
-                    <div class="col text-center">
-                    <button class="btn btn-primary" onclick="ReloadPage()">
-                    Restart Game
-                    </button>
-                    </div>
+            gameResult = "YOU LOSE!"
+            displayField = "result-fail"
+        }
+        document.getElementById(displayField).innerHTML = gameResult;
+        document.getElementById(displayField).innerHTML += `
+        <div class="card">
+            <div class="card-body">
+                <div class="col text-center">
+                <button class="btn btn-primary" onclick="ReloadPage()">
+                Restart Game
+                </button>
                 </div>
             </div>
-            `;
-        }
+        </div>
+        `;
     }
 }
 
-function ReloadPage()
-{
+function ReloadPage(){
     window.location.reload();
 }
